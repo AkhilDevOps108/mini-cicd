@@ -1,0 +1,12 @@
+- hosts: web
+  become: yes
+  tasks:
+
+    - name: Stop old container
+      shell: docker rm -f miniapp || true
+
+    - name: Pull new image
+      shell: docker pull YOUR_DOCKERHUB_USERNAME/miniapp:latest
+
+    - name: Run new container
+      shell: docker run -d --name miniapp -p 80:3000 YOUR_DOCKERHUB_USERNAME/miniapp:latest
