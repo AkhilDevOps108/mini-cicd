@@ -9,4 +9,4 @@
       shell: docker pull YOUR_DOCKERHUB_USERNAME/miniapp:latest
 
     - name: Run new container
-      shell: docker run -d --name miniapp -p 80:3000 YOUR_DOCKERHUB_USERNAME/miniapp:latest
+      shell: docker run -d --name miniapp -p 80:3000 akhil10987/miniapp:latest
