@@ -1,15 +1,13 @@
 pipeline {
     agent any
-    
+
     environment {
-        IMAGE = "yourdockerhubusername/miniapp:latest"
+        IMAGE = "YOUR_DOCKERHUB_USERNAME/miniapp:latest"
     }
 
     stages {
         stage('Clone') {
-            steps {
-                checkout scm
-            }
+            steps { checkout scm }
         }
 
         stage('Build Docker Image') {
@@ -27,13 +25,9 @@ pipeline {
             }
         }
 
-        stage('Deploy (Local)') {
+        stage('Deploy with Ansible') {
             steps {
-                sh """
-                docker rm -f miniapp || true
-                docker pull ${IMAGE}
-                docker run -d --name miniapp -p 80:3000 ${IMAGE}
-                """
+                sh 'ansible-playbook ansible/deploy.yml -i ansible/inventory'
             }
         }
     }
